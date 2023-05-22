@@ -84,21 +84,42 @@ public class ContactosCovid {
 	public void loadDataFile(String fichero, boolean reset) {
 		FileReader fr = null;
 		try {
-			// Apertura del fichero y creacion de BufferedReader para poder
-			// hacer una lectura comoda (disponer del metodo readLine()).
+			fr = abrirFichero(fichero, reset);
+			BufferedReader br = new BufferedReader(fr);
+			leerFichero(br);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			cerrarFichero(fr);
+		}
+	}
+	private void cerrarFichero(FileReader fr){
+		try {
+			if (null != fr) {
+				fr.close();
+			}
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+	}
+	private FileReader abrirFichero(String fichero, boolean reset){
+		FileReader fr = null;
+		try{
 			File archivo = new File(fichero);
 			fr = new FileReader(archivo);
-			BufferedReader br = new BufferedReader(fr);
+
 			if (reset) {
 				this.poblacion = new Poblacion();
 				this.localizacion = new Localizacion();
 				this.listaContactos = new ListaContactos();
-			} 
-			/**
-			 * Lectura del fichero	línea a línea. Compruebo que cada línea 
-			 * tiene el tipo PERSONA o LOCALIZACION y cargo la línea de datos en la 
-			 * lista correspondiente. Sino viene ninguno de esos tipos lanzo una excepción
-			 */
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fr;
+	}
+	private void leerFichero(BufferedReader br){
+		try{
 			String datas[], data;
 			while ((data = br.readLine()) != null) {
 				datas = dividirEntrada(data.trim());
@@ -125,21 +146,10 @@ public class ContactosCovid {
 				}
 
 			}
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			// En el finally cerramos el fichero, para asegurarnos
-			// que se cierra tanto si todo va bien como si salta
-			// una excepcion.
-			try {
-				if (null != fr) {
-					fr.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
 		}
+
 	}
 	public int findPersona(String documento) throws EmsPersonNotFoundException {
 		int pos;
