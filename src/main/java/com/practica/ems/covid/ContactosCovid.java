@@ -1,25 +1,16 @@
 package com.practica.ems.covid;
 
 
+import com.practica.excecption.*;
+import com.practica.genericas.*;
+import com.practica.lista.ListaContactos;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import com.practica.excecption.EmsDuplicateLocationException;
-import com.practica.excecption.EmsDuplicatePersonException;
-import com.practica.excecption.EmsInvalidNumberOfDataException;
-import com.practica.excecption.EmsInvalidTypeException;
-import com.practica.excecption.EmsLocalizationNotFoundException;
-import com.practica.excecption.EmsPersonNotFoundException;
-import com.practica.genericas.Constantes;
-import com.practica.genericas.Coordenada;
-import com.practica.genericas.FechaHora;
-import com.practica.genericas.Persona;
-import com.practica.genericas.PosicionPersona;
-import com.practica.lista.ListaContactos;
 
 public class ContactosCovid {
 	private Poblacion poblacion;
@@ -89,23 +80,15 @@ public class ContactosCovid {
 		}
 	}
 
-	public void loadDataFile(String fichero, boolean reset) {
-		File archivo = null;
-		FileReader fr = null;
-		BufferedReader br = null;
-		String datas[] = null, data = null;
-		loadDataFile(fichero, reset, archivo, fr, br, datas, data);
-		
-	}
-
 	@SuppressWarnings("resource")
-	public void loadDataFile(String fichero, boolean reset, File archivo, FileReader fr, BufferedReader br, String datas[], String data ) {
+	public void loadDataFile(String fichero, boolean reset) {
+		FileReader fr = null;
 		try {
 			// Apertura del fichero y creacion de BufferedReader para poder
 			// hacer una lectura comoda (disponer del metodo readLine()).
-			archivo = new File(fichero);
+			File archivo = new File(fichero);
 			fr = new FileReader(archivo);
-			br = new BufferedReader(fr);
+			BufferedReader br = new BufferedReader(fr);
 			if (reset) {
 				this.poblacion = new Poblacion();
 				this.localizacion = new Localizacion();
@@ -116,6 +99,7 @@ public class ContactosCovid {
 			 * tiene el tipo PERSONA o LOCALIZACION y cargo la línea de datos en la 
 			 * lista correspondiente. Sino viene ninguno de esos tipos lanzo una excepción
 			 */
+			String datas[], data;
 			while ((data = br.readLine()) != null) {
 				datas = dividirEntrada(data.trim());
 				for (String linea : datas) {
