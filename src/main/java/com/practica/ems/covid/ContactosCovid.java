@@ -129,19 +129,10 @@ public class ContactosCovid {
 						throw new EmsInvalidTypeException();
 					}
 					if (datos[0].equals("PERSONA")) {
-						if (datos.length != Constantes.MAX_DATOS_PERSONA) {
-							throw new EmsInvalidNumberOfDataException("El número de datos para PERSONA es menor de 8");
-						}
-						this.poblacion.addPersona(this.crearPersona(datos));
+						aniadirPersona(datos);
 					}
 					if (datos[0].equals("LOCALIZACION")) {
-						if (datos.length != Constantes.MAX_DATOS_LOCALIZACION) {
-							throw new EmsInvalidNumberOfDataException(
-									"El número de datos para LOCALIZACION es menor de 6" );
-						}
-						PosicionPersona pp = this.crearPosicionPersona(datos);
-						this.localizacion.addLocalizacion(pp);
-						this.listaContactos.insertarNodoTemporal(pp);
+						aniadirLocalizacion(datos);
 					}
 				}
 			}
@@ -149,6 +140,32 @@ public class ContactosCovid {
 			e.printStackTrace();
 		}
 	}
+
+	private void aniadirLocalizacion(String[] datos) {
+		try{
+			if (datos.length != Constantes.MAX_DATOS_LOCALIZACION) {
+				throw new EmsInvalidNumberOfDataException(
+						"El número de datos para LOCALIZACION es menor de 6" );
+			}
+			PosicionPersona pp = this.crearPosicionPersona(datos);
+			this.localizacion.addLocalizacion(pp);
+			this.listaContactos.insertarNodoTemporal(pp);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void aniadirPersona(String[] datos) {
+		try{
+			if (datos.length != Constantes.MAX_DATOS_PERSONA) {
+				throw new EmsInvalidNumberOfDataException("El número de datos para PERSONA es menor de 8");
+			}
+			this.poblacion.addPersona(this.crearPersona(datos));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public int findPersona(String documento) throws EmsPersonNotFoundException {
 		int pos;
 		try {
