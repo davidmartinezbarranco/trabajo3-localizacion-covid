@@ -1,13 +1,13 @@
 package com.practica.ems.covid;
 
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import com.practica.excecption.EmsDuplicateLocationException;
 import com.practica.excecption.EmsLocalizationNotFoundException;
 import com.practica.genericas.FechaHora;
 import com.practica.genericas.PosicionPersona;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Localizacion {
 	LinkedList<PosicionPersona> lista;
@@ -50,7 +50,6 @@ public class Localizacion {
 	}
 	public void delLocalizacion(String documento, String fecha, String hora) throws EmsLocalizationNotFoundException {
 	    int pos=-1;
-	    int i;
 	    /**
 	     *  Busca la localización, sino existe lanza una excepción
 	     */
