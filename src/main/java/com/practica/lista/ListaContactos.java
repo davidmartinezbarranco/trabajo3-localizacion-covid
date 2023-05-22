@@ -38,18 +38,9 @@ public class ListaContactos {
 		NodoTemporal nuevo = new NodoTemporal();
 		nuevo.setFecha(p.getFechaPosicion());
 
-		NodoPosicion npActual = nuevo.getListaCoordenadas();
 		NodoPosicion npAnt = null;
-		boolean npEncontrado = false;
-		while (npActual != null && !npEncontrado) {
-			if (npActual.getCoordenada().equals(p.getCoordenada())) {
-				npEncontrado = true;
-				npActual.setNumPersonas(npActual.getNumPersonas() + 1);
-			} else {
-				npAnt = npActual;
-				npActual = npActual.getSiguiente();
-			}
-		}
+		boolean npEncontrado = buscarNodoPosicion(npAnt, nuevo, p);
+
 		if (!npEncontrado) {
 			NodoPosicion npNuevo = new NodoPosicion(p.getCoordenada(), 1, null);
 			if (nuevo.getListaCoordenadas() == null)
@@ -66,6 +57,21 @@ public class ListaContactos {
 			lista = nuevo;
 		}
 		this.size++;
+	}
+
+	private boolean buscarNodoPosicion(NodoPosicion npAnt, NodoTemporal nuevo, PosicionPersona p) {
+		boolean npEncontrado = false;
+		NodoPosicion npActual = nuevo.getListaCoordenadas();
+		while (npActual != null && !npEncontrado) {
+			if (npActual.getCoordenada().equals(p.getCoordenada())) {
+				npEncontrado = true;
+				npActual.setNumPersonas(npActual.getNumPersonas() + 1);
+			} else {
+				npAnt = npActual;
+				npActual = npActual.getSiguiente();
+			}
+		}
+		return npEncontrado;
 	}
 
 	private void insertarEnListaCoordenadas(NodoTemporal aux, PosicionPersona p){
