@@ -144,12 +144,10 @@ public class ContactosCovid {
 						this.listaContactos.insertarNodoTemporal(pp);
 					}
 				}
-
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 	public int findPersona(String documento) throws EmsPersonNotFoundException {
 		int pos;
