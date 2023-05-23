@@ -235,29 +235,20 @@ public class ContactosCovid {
 		Persona persona = new Persona();
 		for (int i = 1; i < Constantes.MAX_DATOS_PERSONA; i++) {
 			String s = data[i];
-			switch (i) {
-			case 1:
+			if(i == 1)
 				persona.setDocumento(s);
-				break;
-			case 2:
+			if(i == 2)
 				persona.setNombre(s);
-				break;
-			case 3:
+			if(i == 3)
 				persona.setApellidos(s);
-				break;
-			case 4:
+			if(i == 4)
 				persona.setEmail(s);
-				break;
-			case 5:
+			if(i == 5)
 				persona.setDireccion(s);
-				break;
-			case 6:
+			if(i == 6)
 				persona.setCp(s);
-				break;
-			case 7:
+			if(i == 7)
 				persona.setFechaNacimiento(parsearFecha(s));
-				break;
-			}
 		}
 		return persona;
 	}
