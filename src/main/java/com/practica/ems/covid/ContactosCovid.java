@@ -125,16 +125,24 @@ public class ContactosCovid {
 				datas = dividirEntrada(data.trim());
 				for (String linea : datas) {
 					String datos[] = this.dividirLineaData(linea);
-					if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
-						throw new EmsInvalidTypeException();
-					}
-					if (datos[0].equals("PERSONA")) {
-						aniadirPersona(datos);
-					}
-					if (datos[0].equals("LOCALIZACION")) {
-						aniadirLocalizacion(datos);
-					}
+					leerLinea(datos);
 				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void leerLinea(String[] datos) {
+		try{
+			if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
+				throw new EmsInvalidTypeException();
+			}
+			if (datos[0].equals("PERSONA")) {
+				aniadirPersona(datos);
+			}
+			if (datos[0].equals("LOCALIZACION")) {
+				aniadirLocalizacion(datos);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
