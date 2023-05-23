@@ -256,7 +256,7 @@ public class ContactosCovid {
 			if(i == 6)
 				persona.setCp(s);
 			if(i == 7)
-				persona.setFechaNacimiento(parsearFecha(s));
+				persona.setFechaNacimiento(FechaHora.parsearFecha(s));
 		}
 		return persona;
 	}
@@ -273,7 +273,7 @@ public class ContactosCovid {
 				fecha = data[i];
 			if(i == 3) {
 				hora = data[i];
-				posicionPersona.setFechaPosicion(parsearFecha(fecha, hora));
+				posicionPersona.setFechaPosicion(FechaHora.parsearFecha(fecha, hora));
 			}
 			if(i == 4)
 				latitud = Float.parseFloat(s);
@@ -283,29 +283,5 @@ public class ContactosCovid {
 			}
 		}
 		return posicionPersona;
-	}
-	
-	private FechaHora parsearFecha (String fecha) {
-		int dia, mes, anio;
-		String[] valores = fecha.split("\\/");
-		dia = Integer.parseInt(valores[0]);
-		mes = Integer.parseInt(valores[1]);
-		anio = Integer.parseInt(valores[2]);
-		FechaHora fechaHora = new FechaHora(dia, mes, anio, 0, 0);
-		return fechaHora;
-	}
-	
-	private FechaHora parsearFecha (String fecha, String hora) {
-		int dia, mes, anio;
-		String[] valores = fecha.split("\\/");
-		dia = Integer.parseInt(valores[0]);
-		mes = Integer.parseInt(valores[1]);
-		anio = Integer.parseInt(valores[2]);
-		int minuto, segundo;
-		valores = hora.split("\\:");
-		minuto = Integer.parseInt(valores[0]);
-		segundo = Integer.parseInt(valores[1]);
-		FechaHora fechaHora = new FechaHora(dia, mes, anio, minuto, segundo);
-		return fechaHora;
 	}
 }
